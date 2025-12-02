@@ -1,0 +1,21 @@
+# Entornos virtuales
+venv/
+env/
+
+# Archivos compilados de Python
+__pycache__/
+*.pyc
+
+# Archivos temporales generados por Algoritmia
+output/
+*.log
+*.pdf
+*.wav
+*.midi
+*.mid
+*.ly
+*.alg
+
+# Archivos temporales de sistema
+.DS_Store
+Thumbs.db
