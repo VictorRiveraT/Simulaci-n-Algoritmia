@@ -62,18 +62,17 @@ def run_algoritmia_code(code_text, temp_dir, start_proc='Main'):
         parser = AlgoritmiaParser(stream_tokens)
         tree = parser.program()
 
-        # 2. VALIDACIÓN SEMÁNTICA (El Policía)
+        # 2. VALIDACIÓN SEMÁNTICA
         validator = AlgoritmiaValidator()
         errors = validator.visit(tree)
 
         if errors:
             # Si hay errores, restauramos la consola y devolvemos el reporte
-            sys.stdout = original_stdout  # <--- Ahora sí existe esta variable
+            sys.stdout = original_stdout
             error_report = "ERRORES DE COMPILACIÓN:\n\n" + "\n".join(errors)
-            # Retornamos sin generar archivos (diccionarios vacíos)
             return error_report, {}, None
 
-        # 3. Interpretación (Ejecución real) - Solo si no hubo errores
+        # 3. Interpretación (Ejecución real)
         interpreter = AlgoritmiaInterpreter(start_proc)
         interpreter.output_base_name = base_name
         interpreter.visit(tree)
@@ -85,7 +84,7 @@ def run_algoritmia_code(code_text, temp_dir, start_proc='Main'):
         # Asegurarnos de devolver el control a la consola real siempre
         sys.stdout = original_stdout
 
-    # --- Recolección de Resultados (Solo si pasó la validación) ---
+    # --- Recolección de Resultados ---
     pdf_path = f"{base_name}.pdf"
     midi_path = f"{base_name}.midi"
     if not os.path.exists(midi_path): 
@@ -133,7 +132,6 @@ def run_code():
             'pdf_filename': results.get('pdf_filename'),
             'midi_filename': results.get('midi_filename'),
             'zip_filename': results.get('zip_filename'),
-            # AQUÍ ESTÁ LA MAGIA: Enviamos el nombre de la carpeta limpia
             'temp_id': os.path.basename(temp_dir) 
         })
     except Exception as e:
@@ -150,8 +148,6 @@ def download_files(type, temp_id, filename):
     if type == 'pdf': mimetype = 'application/pdf'
     elif type == 'midi': mimetype = 'audio/midi'
     elif type == 'zip': mimetype = 'application/zip'
-    
-    # 'view' para PDF (inline), 'download' para el resto (attachment)
     as_attachment = (type != 'pdf')
     
     try:
@@ -159,8 +155,7 @@ def download_files(type, temp_id, filename):
     except Exception:
         return "Archivo no encontrado o expirado", 404
 
-# === PLANTILLA HTML/JS (Con la lógica corregida) ===
-# === PLANTILLA HTML/JS (DISEÑO MEJORADO v2.0) ===
+# === PLANTILLA HTML/JS  ===
 HTML_TEMPLATE = r"""
 <!DOCTYPE html>
 <html lang="es">
@@ -174,7 +169,6 @@ HTML_TEMPLATE = r"""
     <style>
         body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #0f172a; color: #e2e8f0; }
         
-        /* AUMENTAMOS LA ALTURA DEL EDITOR A 750px PARA VER MÁS CÓDIGO */
         .CodeMirror { 
             height: 750px !important; 
             border: 1px solid #334155; 
