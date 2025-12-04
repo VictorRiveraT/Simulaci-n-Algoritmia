@@ -350,7 +350,7 @@ class AlgoritmiaInterpreter(AlgoritmiaVisitor):
             print("No se tocaron notas.")
             return
 
-        # --- 1. DEFINICIÓN DE VARIABLES (Esto es lo que faltaba) ---
+        # --- 1. DEFINICIÓN DE VARIABLES ---
         base_path = os.path.abspath(self.output_base_name)
         file_dir = os.path.dirname(base_path)
         ly_file = os.path.join(file_dir, f"{self.output_base_name}.ly")
@@ -365,19 +365,13 @@ class AlgoritmiaInterpreter(AlgoritmiaVisitor):
         sistema = platform.system() # Detecta 'Windows' o 'Linux'
 
         if sistema == 'Windows':
-            # Rutas para TU computadora (Windows)
-            # Asegúrate de que esta ruta sea la correcta en tu PC
             lilypond_cmd = [r"C:\Users\jande\Downloads\lilypond-2.24.4-mingw-x86_64\lilypond-2.24.4\bin\lilypond.exe"]
             timidity_cmd = ['timidity'] 
-            # Ruta al SoundFont en Windows
             sf2_path = r"C:\Timidity\FluidR3_GM.sf2"
             extra_timidity_args = ['-x', f'soundfont "{sf2_path}"']
         else:
-            # Rutas para DOCKER / LINUX (Estándar)
-            # En Linux/Docker usamos los comandos globales directos
             lilypond_cmd = ['lilypond'] 
             timidity_cmd = ['timidity']
-            # En Docker el soundfont se configura automáticamente o por defecto
             extra_timidity_args = [] 
 
         try:
