@@ -25,19 +25,25 @@
 
 ## Demo Rápido
 
-### Hello Algoritmia
+### Prueba de Ritmo y Polimorfismo ###
 ```algoritmia
-### Mi primer programa musical ###
-
 Main |:
-    <w> "Hello Algoritmia"
-    (:) {C D E F G A B C}
+    <w> "Iniciando sistema..."
+    
+    (:) { C4:w }      ### Redonda ###
+    (:) { E4:h }      ### Blanca ###
+    (:) { G4:q }      ### Negra ###
+    (:) { C5:e C5:e } ### Corcheas ###
+    
+    <w> "Transponiendo..."
+    base <- C3:q
+    (:) { base (base + 4) (base + 7) }
 :|
 ```
 
 **Salida:**
-- Consola: `Hello Algoritmia`
-- Genera: `alg.pdf`, `alg.midi`, `alg.wav`
+- Consola: `Prueba de Ritmo y Polimorfismo`
+- Genera: `output.pdf`, `output.midi`, `output.wav`
 - Audio: Escala de Do mayor (Do, Re, Mi, Fa, Sol, La, Si, Do)
 
 ### Torres de Hanoi Musical
