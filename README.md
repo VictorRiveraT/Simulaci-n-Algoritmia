@@ -313,8 +313,6 @@ Simulaci-n-Algoritmia/
 ├── Dockerfile               # Configuración para despliegue en contenedores
 ├── requirements.txt         # Lista de dependencias (Flask, ANTLR runtime, etc.)
 ├── test_algoritmia.py       # Suite de pruebas unitarias
-├── templates/               # Plantillas HTML para la interfaz web
-│   └── index.html           # Interfaz principal del editor
 ├── static/                  # Recursos estáticos (CSS, JS, Imágenes)
 └── README.md                # Documentación del proyecto
 ```
