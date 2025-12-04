@@ -235,19 +235,24 @@ HTML_TEMPLATE = r"""
 
                 <div class="shadow-2xl rounded-b-xl overflow-hidden flex-grow">
                     <textarea id="alg-code">
-### Prueba de Ritmo y Polimorfismo ###
+### Torres de Hanoi ###
 
 Main |:
-    <w> "Iniciando sistema..."
-    
-    (:) { C4:w }      ### Redonda ###
-    (:) { E4:h }      ### Blanca ###
-    (:) { G4:q }      ### Negra ###
-    (:) { C5:e C5:e } ### Corcheas ###
-    
-    <w> "Transponiendo..."
-    base <- C3:q
-    (:) { base (base + 4) (base + 7) }
+    src <- {C D E F G}
+    dst <- {}
+    aux <- {}
+    HanoiRec 5 src dst aux
+:|
+
+HanoiRec n src dst aux |:
+    if n > 0 |:
+        HanoiRec (n - 1) src aux dst
+        note <- src[#src]
+        8< src[#src]
+        dst << note
+        (:) note
+        HanoiRec (n - 1) aux dst src
+    :|
 :|</textarea>
                 </div>
 
