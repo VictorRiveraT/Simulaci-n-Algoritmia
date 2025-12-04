@@ -25,30 +25,9 @@
 
 ## Demo Rápido
 
-### Prueba de Ritmo y Polimorfismo ###
-```algoritmia
-Main |:
-    <w> "Iniciando sistema..."
-    
-    (:) { C4:w }      ### Redonda ###
-    (:) { E4:h }      ### Blanca ###
-    (:) { G4:q }      ### Negra ###
-    (:) { C5:e C5:e } ### Corcheas ###
-    
-    <w> "Transponiendo..."
-    base <- C3:q
-    (:) { base (base + 4) (base + 7) }
-:|
-```
-
-**Salida:**
-- Consola: `Prueba de Ritmo y Polimorfismo`
-- Genera: `output.pdf`, `output.midi`, `output.wav`
-- Audio: Escala de Do mayor (Do, Re, Mi, Fa, Sol, La, Si, Do)
-
 ### Torres de Hanoi Musical
 ```algoritmia
-### Hanoi con música ###
+### Torres de Hanoi ###
 
 Hanoi |:
     src <- {C D E F G}
@@ -69,8 +48,10 @@ HanoiRec n src dst aux |:
 :|
 ```
 
-Genera una melodía de 31 notas que representa los movimientos de las Torres de Hanoi con 5 discos.
-
+**Salida:**
+- Consola: `Torres de Hanoi`
+- Genera: `output.pdf`, `output.midi`, `output.wav`
+- Audio: Escala de Do mayor (Do, Re, Mi, Fa, Sol, La, Si, Do)
 ---
 
 ## Instalación
@@ -158,10 +139,10 @@ python algoritmia.py ejemplos/hanoi.alg
 ### Aplicación Web
 
 1. Escribe tu código Algoritmia en el editor
-2. Haz clic en "Procesar y Componer (Generar Música)"
+2. Haz clic en "Compilar"
 3. Observa la salida en consola
-4. Reproduce el audio generado en el navegador
-5. Descarga archivos PDF, MIDI, WAV o ZIP completo
+4. Reproduce el audio generado en el navegador y revisa las partituras
+6. Descarga archivos PDF, MIDI, WAV o ZIP completo
 
 ---
 
@@ -170,42 +151,51 @@ python algoritmia.py ejemplos/hanoi.alg
 ### Elementos Básicos
 
 | Elemento | Sintaxis | Ejemplo |
-|----------|----------|---------|
-| Comentarios | `### texto ###` | `### Esto es un comentario ###` |
-| Procedimientos | `Nombre params \|: ... :\|` | `Main \|: <w> "Hola" :\|` |
-| Asignación | `var <- expr` | `x <- 10` |
-| Lectura | `<?> var` | `<?> n` |
-| Escritura | `<w> expr` | `<w> "Resultado:" x` |
-| Reproducción | `(:) expr` | `(:) C` o `(:) {C E G}` |
-| Condicional | `if expr \|: ... :\| else \|: ... :\|` | `if x > 0 \|: ... :\|` |
-| Bucle | `while expr \|: ... :\|` | `while x > 0 \|: ... :\|` |
-| Llamada | `Procedimiento arg1 arg2` | `Euclides a b` |
+| :--- | :--- | :--- |
+| **Comentarios** | `### texto ###` | `### Esto es un comentario ###` |
+| **Procedimientos** | `Nombre params |: ... :|` | `Main |: <w> "Hola" :|` |
+| **Asignación** | `var <- expr` | `x <- 10` |
+| **Lectura** | `<?> var` | `<?> n` |
+| **Escritura** | `<w> expr` | `<w> "Resultado:" x` |
+| **Reproducción** | `(:) expr` | `(:) C4` o `(:) {C E G}` |
+| **Agregar a Lista** | `lista << expr` | `notas << C5` |
+| **Cortar Lista** | `8< lista[i]` | `8< notas[1]` |
+| **Longitud** | `# expr` | `len <- #notas` |
+| **Condicional** | `if expr |: ... :| else |: ... :|` | `if x > 0 |: ... :|` |
+| **Bucle** | `while expr |: ... :|` | `while x > 0 |: ... :|` |
+| **Llamada** | `Procedimiento arg1 arg2` | `Euclides a b` |
 
 ### Operaciones sobre Listas
 
 | Operación | Sintaxis | Descripción |
-|-----------|----------|-------------|
-| Literal | `{elem1 elem2 ...}` | Crear lista |
-| Acceso | `lista[i]` | Acceder al i-ésimo elemento (índice base 1) |
-| Añadir | `lista << elem` | Añadir elemento al final |
-| Eliminar | `8< lista[i]` | Eliminar i-ésimo elemento |
-| Longitud | `#lista` | Obtener tamaño de la lista |
+| :--- | :--- | :--- |
+| **Literal** | `{e1 e2 ...}` | Crear lista nueva |
+| **Acceso** | `lista[i]` | Acceder al i-ésimo elemento (índice base 1) |
+| **Añadir** | `lista << elem` | Añadir elemento al final |
+| **Eliminar** | `8< lista[i]` | Eliminar i-ésimo elemento |
+| **Longitud** | `#lista` | Obtener tamaño de la lista |
+> **Nota:** Los índices de las listas comienzan en **1**.
 
 ### Operadores
 
-**Aritméticos:** `+`, `-`, `*`, `/`, `%`  
-**Relacionales:** `=`, `/=`, `<`, `>`, `<=`, `>=`  
-**Precedencia:** Igual que en C (multiplicación/división antes que suma/resta)
+| Categoría | Símbolos | Descripción |
+| :--- | :--- | :--- |
+| **Aritméticos** | `+` `-` `*` `/` `%` | Suma, Resta, Multiplicación, División y Módulo (residuo). |
+| **Relacionales** | `=` `/=` `<` `>` `<=` `>=` | Igual, Diferente, Menor, Mayor, Menor igual, Mayor igual. |
+
+> **Precedencia:** Se sigue la jerarquía estándar (como en C/Java): la multiplicación y división (`*`, `/`, `%`) se evalúan antes que la suma y resta (`+`, `-`).
 
 ### Notas Musicales
 
 Algoritmia utiliza la notación anglosajona:
-- **C** = Do, **D** = Re, **E** = Mi, **F** = Fa, **G** = Sol, **A** = La, **B** = Si
-- **Rango:** A0 a C8 (52 notas - teclas blancas del piano)
-- **Octavas:** Se numeran del 0 al 8
-- **Sin número:** Octava central (C = C4, D = D4, etc.)
+
+* **C** = Do, **D** = Re, **E** = Mi, **F** = Fa, **G** = Sol, **A** = La, **B** = Si
+* **Rango:** A0 a C8 (52 notas - teclas blancas del piano)
+* **Octavas:** Se numeran del 0 al 8
+* **Sin número:** Octava central (C = C4, D = D4, etc.)
 
 **Ejemplo:**
+
 ```algoritmia
 ### Escala de Do mayor ###
 Main |:
@@ -216,39 +206,60 @@ Main |:
 ---
 
 ## Arquitectura del Sistema
-```
-┌─────────────────────────────────────────┐
-│         Interfaz Web (Flask)            │
-│  Editor de código + Reproductor audio   │
-└─────────────┬───────────────────────────┘
-              │
-              ▼
-┌─────────────────────────────────────────┐
-│      Intérprete Algoritmia (Python)     │
-├─────────────────────────────────────────┤
-│  • AlgoritmiaLexer  (ANTLR4)            │
-│  • AlgoritmiaParser (ANTLR4)            │
-│  • AlgoritmiaInterpreter (Visitor)      │
-└─────────────┬───────────────────────────┘
-              │
-              ▼
-┌─────────────────────────────────────────┐
-│    Generación de Música                 │
-├─────────────────────────────────────────┤
-│  • LilyPond → PDF + MIDI                │
-│  • Timidity → WAV                       │
-└─────────────────────────────────────────┘
+
+El sistema opera bajo una arquitectura modular donde el código fuente pasa por una fase de validación estricta antes de ser interpretado.
+
+```mermaid
+graph TD
+    %% Estilos
+    classDef entry fill:#238636,stroke:#30363d,color:white;
+    classDef core fill:#1f6feb,stroke:#30363d,color:white;
+    classDef tools fill:#d29922,stroke:#30363d,color:black;
+
+    subgraph ENTRY ["1. Capa de Entrada"]
+        direction TB
+        WEB["app.py (Web/Flask)"]:::entry
+        CLI["algoritmia.py (Terminal)"]:::entry
+    end
+
+    subgraph CORE ["2. Núcleo de Procesamiento"]
+        direction TB
+        ANTLR["Lexer & Parser (ANTLR4)"]:::core
+        VALIDATOR["AlgoritmiaValidator.py"]:::core
+        INTERP["AlgoritmiaInterpreter.py"]:::core
+    end
+
+    subgraph EXT ["3. Motor de Generación"]
+        direction TB
+        LILY["LilyPond (PDF/MIDI)"]:::tools
+        TIMI["Timidity++ (WAV)"]:::tools
+    end
+
+    %% Flujo
+    WEB --> ANTLR
+    CLI --> ANTLR
+    ANTLR --> VALIDATOR
+    VALIDATOR -->|Código Válido| INTERP
+    INTERP --> LILY
+    LILY --> TIMI
+
+    %% Aplicar estilos (opcional, para que se vea oscuro)
+    class WEB,CORE,GEN box
 ```
 
 ### Componentes Principales
 
-- **`Algoritmia.g4`**: Especificación de la gramática en formato ANTLR4
-- **`AlgoritmiaLexer.py`**: Analizador léxico generado automáticamente
-- **`AlgoritmiaParser.py`**: Analizador sintáctico generado automáticamente
-- **`AlgoritmiaInterpreter.py`**: Implementación del intérprete usando patrón Visitor
-- **`algoritmia.py`**: Interfaz de línea de comandos
-- **`app.py`**: Aplicación web Flask
-- **`Dockerfile`**: Configuración para contenedorización
+* `Algoritmia.g4`: Gramática oficial del lenguaje. Define las reglas léxicas y sintácticas.
+* `AlgoritmiaLexer.py` / `AlgoritmiaParser.py`: Analizadores generados por ANTLR4.
+* `AlgoritmiaInterpreter.py`: Visitor principal que ejecuta la lógica del código.
+* `AlgoritmiaValidator.py`: Módulo encargado de la validación semántica antes de la ejecución.
+* `AlgoritmiaVisitor.py` / `AlgoritmiaListener.py`: Clases base para recorrer el árbol sintáctico.
+* `app.py`: Servidor web Flask que gestiona la interfaz, el editor y la generación de audio.
+* `algoritmia.py`: Punto de entrada para ejecutar scripts desde la terminal (CLI).
+* `test_algoritmia.py`: Suite de pruebas unitarias para verificar el funcionamiento del intérprete.
+* `Dockerfile`: Configuración para desplegar el entorno completo con todas las dependencias (Java, Python, LilyPond, Timidity).
+* `requirements.txt`: Lista de librerías Python necesarias.
+* `static/` & `templates/`: Recursos frontend (CSS, JS, HTML) para la interfaz web.
 
 ### Flujo de Ejecución
 
@@ -286,26 +297,26 @@ Main |:
 ## Estructura del Proyecto
 ```
 Simulaci-n-Algoritmia/
-├── Algoritmia.g4                # Gramática ANTLR del lenguaje
-├── Algoritmia.interp            # Archivo de interpretación ANTLR
-├── Algoritmia.tokens            # Tokens definidos
-├── AlgoritmiaLexer.py           # Analizador léxico generado
-├── AlgoritmiaLexer.interp       # Interpretación del lexer
-├── AlgoritmiaLexer.tokens       # Tokens del lexer
-├── AlgoritmiaParser.py          # Analizador sintáctico generado
-├── AlgoritmiaInterpreter.py     # Implementación del intérprete
-├── AlgoritmiaVisitor.py         # Clase base para visitors
-├── AlgoritmiaListener.py        # Clase base para listeners
-├── algoritmia.py                # CLI principal
-├── app.py                       # Aplicación web Flask
-├── Dockerfile                   # Configuración de Docker
-├── requirements.txt             # Dependencias Python
-├── templates/                   # Plantillas HTML
-│   └── index.html              # Interfaz web principal
-├── static/                      # Archivos estáticos
-│   ├── css/
-│   └── js/
-└── README.md                    # Este archivo
+├── Algoritmia.g4            # Gramática ANTLR del lenguaje (Reglas léxicas y sintácticas)
+├── Algoritmia.interp        # Metadatos de interpretación ANTLR
+├── Algoritmia.tokens        # Definición de tokens generados
+├── AlgoritmiaLexer.py       # Analizador léxico (Generado automáticamente)
+├── AlgoritmiaLexer.interp   # Metadatos del lexer
+├── AlgoritmiaLexer.tokens   # Tokens específicos del lexer
+├── AlgoritmiaParser.py      # Analizador sintáctico (Generado automáticamente)
+├── AlgoritmiaInterpreter.py # Lógica principal de ejecución (Visitor Pattern)
+├── AlgoritmiaValidator.py   # Validador semántico (Chequeo de tipos y errores previos)
+├── AlgoritmiaVisitor.py     # Clase base abstracta para el patrón Visitor
+├── AlgoritmiaListener.py    # Clase base abstracta para el patrón Listener
+├── algoritmia.py            # Punto de entrada para la Línea de Comandos (CLI)
+├── app.py                   # Servidor Web (Flask) y lógica de backend
+├── Dockerfile               # Configuración para despliegue en contenedores
+├── requirements.txt         # Lista de dependencias (Flask, ANTLR runtime, etc.)
+├── test_algoritmia.py       # Suite de pruebas unitarias
+├── templates/               # Plantillas HTML para la interfaz web
+│   └── index.html           # Interfaz principal del editor
+├── static/                  # Recursos estáticos (CSS, JS, Imágenes)
+└── README.md                # Documentación del proyecto
 ```
 
 ---
@@ -385,11 +396,11 @@ Genera una secuencia cromática de 52 notas desde A0 hasta C8.
 **Universidad Peruana Cayetano Heredia - 2025**
 
 **Integrantes:**
-- Vanesa Doris Rioja Cruz
+- Vanesa Doris Rioja Cruz - [@vanesarioja29](https://github.com/vanesarioja29)
 - Victor Daniel Rivera Torres - [@VictorRiveraT](https://github.com/VictorRiveraT)
 - Arny Eliu Salazar Cobian - [@ArnySalazar](https://github.com/ArnySalazar)
-- Matias Dario Huerta Cruz
-- Jander Huamani Salazar
+- Matias Dario Huerta Cruz - [@dariohuerta84](https://github.com/dariohuerta84)
+- Jander Huamani Salazar - [@Jander03](https://github.com/Jander03)
 
 **Profesor:** Mg. Wilder Nina Choquehuayta  
 **Curso:** Implementación de Lenguajes de Programación  
